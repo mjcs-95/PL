@@ -1,0 +1,36 @@
+
+
+
+asignacion : VAR "=" exp ";"
+declaracion: INT VAR ";"
+
+IF: '(' cont_par ')''{' cont_if '}'
+    IF ELSE;
+
+ELSE: '{' cont_if'}' | '{' IF '}'
+
+COMP: "==" | "<=" | ">=" | "!="
+
+comparacion: COMP exp;
+
+LOG: "AND" | "OR" LOG_N: "NOT"
+
+op_log: exp LOG exp | LOG_N exp
+
+VAR: ____ | "CONST" ____ | ____ '[' NUM ']'
+
+
+
+NUM: [0-9]
+VAR: [A-Za-z][A-Za-z0-9]*
+INT: -?[0-9]+
+--------------------------------
+exp: INT | VAR | asignacion | operacion
+
+comp: comp COMP fact
+    | fact
+
+fact: fact LOG op
+    | op
+
+op  : op ARITM;
