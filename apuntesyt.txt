@@ -1,0 +1,38 @@
+yylex() Ejecuta el analisis lexico
+yyterminate() finaliza el análisis
+yyparse() Ejecuta el analisis sintactico
+yyerror() muestra error
+return TO
+char* yytext; Contiene el lexema analizado
+yylval: variable global del a.lexico que puede dejar valores para el bison
+        La variable yylval es el union del bison, atoi -> ascii to integer
+
+
+Compilar bison con -d genera y.tab.h, para tokens y cosas así
+Incluir este fichero en el lexico, evita tener que definir los token
+
+En flex tenemos
+FILE *yyin, *yyout para cambiar la entrada/salida
+Ejemplo:
+    yyin = fopen("fichero_en","r");
+
+Esta linea se añade en el main de flex
+Ejemplo:
+
+    main(int argc, char** argv){
+        yyin = fopen(argv[1],"r");
+        yylex();
+    }
+
+%token permite devolver un token
+
+Pasos:
+    Escribir el .l
+    Escribir el .y
+    Compilar el léxico con flex "flex archivo.l"
+    Compilar el .y con bison    "bison -t -d -v archivo.y"
+    Compilar todo con C/C++     "g++ main.c lex.yy.cc sintactico.tab.c -lfl"
+    Ejecutar                    ""
+
+Bison usar analizadores lalr(1)
+Su archivo generado tiene una función llamada yyparse()

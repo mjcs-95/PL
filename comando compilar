@@ -1,0 +1,1 @@
+bison -Wall -t -d -v parser.y && flex lexico.l && g++ lex.yy.c parser.tab.c -lfl
